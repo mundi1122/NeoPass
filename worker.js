@@ -1361,9 +1361,11 @@ async function queryCustomAPI(text, isMCQ, isMultipleChoice, config) {
                     // Required for browser-based (extension) requests
                     'anthropic-dangerous-direct-browser-access': 'true'
                 };
+                const claudeModel = modelName || 'claude-3-haiku-20240307';
+                const claudeMaxTokens = claudeModel.includes('haiku') ? 4096 : 8192;
                 requestBody = {
-                    model: modelName || 'claude-3-haiku-20240307',
-                    max_tokens: 8192,
+                    model: claudeModel,
+                    max_tokens: claudeMaxTokens,
                     messages: [{ role: 'user', content: prompt }]
                 };
                 break;
